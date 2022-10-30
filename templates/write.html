@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title%}New post{% endblock %}
+
+{% block body%}
+<p>
+<h1>Новый пост:</h1>
+<form method="post">
+  <input type="text" class="form-control" name="title" id="title" placeholder="Заголовок"><br>
+  <input type="text" class="form-control" name="content" id="content" placeholder="Текст"><br>
+  <button class="btn-success" type="submit">Записать</button>
+</form>
+</p>
+
+{% endblock %}
