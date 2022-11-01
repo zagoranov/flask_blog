@@ -16,7 +16,7 @@
           <a class="link-secondary" href="#" aria-label="Search">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" style="--darkreader-inline-stroke: currentColor;" data-darkreader-inline-stroke=""><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path></svg>
           </a>
-          <a class="btn btn-sm btn-outline-secondary" href="/writepost">Write</a>
+          <a class="btn btn-sm btn-outline-secondary" href="/writepost">New post</a>
           <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
         </div>
       </div>
@@ -49,48 +49,18 @@
       </div>
     </div>
   
-    <div class="row mb-2">
-      <div class="col-md-6">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-          <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-primary">World</strong>
-            <h3 class="mb-0">Featured post</h3>
-            <div class="mb-1 text-muted">Nov 12</div>
-            <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="stretched-link">Continue reading</a>
-          </div>
-          <div class="col-auto d-none d-lg-block">
-            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" style="--darkreader-inline-fill: #43484b;" data-darkreader-inline-fill=""></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" style="--darkreader-inline-fill: #dddad6;" data-darkreader-inline-fill="">Thumbnail</text></svg>
-  
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-          <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-success">Design</strong>
-            <h3 class="mb-0">Post title</h3>
-            <div class="mb-1 text-muted">Nov 11</div>
-            <p class="mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="stretched-link">Continue reading</a>
-          </div>
-          <div class="col-auto d-none d-lg-block">
-            <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c" style="--darkreader-inline-fill: #43484b;" data-darkreader-inline-fill=""></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em" style="--darkreader-inline-fill: #dddad6;" data-darkreader-inline-fill="">Thumbnail</text></svg>
-  
-          </div>
-        </div>
-      </div>
-    </div>
-  
-    <div class="row g-5">
+        <div class="row g-5">
       <div class="col-md-8">
 
         {% for post in data%}
         <article class="blog-post">
         <h2 class="blog-post-title mb-1">{{ post.title }}</h2>
         <p class="blog-post-meta">January 1, 2021 by <a href="#">Autor</a></p>
-        <p>{{ post.content }}</p>
+        <p><div style="white-space:pre">{{ post.content }}</div></p>
         </article>
+        <p>
+          <a class="btn btn-secondary btn-sm" href="{{ url_for('writepost_bp.edit_post', id = post.id) }}" role="button">Edit</a>
+          <a class="btn btn-dark btn-sm" href="{{ url_for('writepost_bp.delete_post', id = post.id) }}" role="button">Delete</a>
         <hr>
         {% endfor %}
 
