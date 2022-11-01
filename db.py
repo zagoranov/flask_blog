@@ -1,11 +1,15 @@
-from flask_sqlalchemy import SQLAlchemy
+from flask import flash
+from main import Post, dbase
 
-def init(app):
+def save_post(title, content):
+    post = Post(title=title, content=content)
     try:
-	app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
-	app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-        dbase = SQLAlchemy(app)
-        dbase.init_app(app)
-        return True
+        dbase.session.add(post)
+        dbase.session.commit()
     except:
+        flash("Что-то неправильное в данных, наверно где-то пусто", "error")
         return False
+    return True
+
+def getPosts():
+    return Post.query.all()

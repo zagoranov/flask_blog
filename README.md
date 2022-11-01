@@ -2,8 +2,8 @@
 -------------
 
 # Based on
-https://www.youtube.com/watch?v=759C2p3CAA4
-
+- Base: https://www.youtube.com/watch?v=759C2p3CAA4
+- Forms: https://www.youtube.com/watch?v=oba6GGprvKc
 
 # To create db:
 python

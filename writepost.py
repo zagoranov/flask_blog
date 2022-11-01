@@ -1,21 +1,18 @@
-from flask import Blueprint, render_template, redirect, url_for, request
+from flask import Blueprint, render_template, url_for, redirect, flash
+
+from forms import PostForm
 
 import db
-from forms import PostForm
 
 writepost_bp = Blueprint('writepost_bp', __name__)
 
-@writepost_bp.route('/', methods=['GET', 'POST'])
+@writepost_bp.route('/writepost/', methods=['GET', 'POST'])
 def write_post():
-        form = PostForm()
-        if form.validate_on_submit():
-            post = Post(title=form.title.data, content=form.content.data)
-            try:
-                db.dbase.session.add(post)
-                db.dbase.session.commit()
-            except:
-                return "Получилась ошибка!"
-            return redirect('/')
-        flash("Что-то неправильное в данных, наверно где-то пусто", "error")
+    form = PostForm()
+    if form.validate_on_submit():
+        if not db.save_post(form.title.data, form.content.data):
+            flash("Что-то неправильное в данных, наверно где-то пусто", "error")
+        else:
+            return redirect(url_for('index'))
 
     return render_template('/write.html', form=form)
