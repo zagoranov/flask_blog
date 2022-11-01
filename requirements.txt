@@ -1,3 +1,6 @@
-Flask
-flask-sqlalchemy
-flask_wtf
+Python==3.6.9
+Flask==2.0.3
+Werkzeug==2.0.3
+Jinja2==3.0.3
+flask-sqlalchemy==1.4.42 
+Flask-WTF==1.0.1
