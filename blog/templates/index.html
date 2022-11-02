@@ -52,15 +52,16 @@
         <div class="row g-5">
       <div class="col-md-8">
 
-        {% for post in data%}
+        {% for post in data %}
         <article class="blog-post">
-        <h2 class="blog-post-title mb-1">{{ post.title }}</h2>
-        <p class="blog-post-meta">January 1, 2021 by <a href="#">Autor</a></p>
-        <p><div style="white-space:pre">{{ post.content }}</div></p>
+         <h2 class="blog-post-title mb-1">{{ post.title }}</h2>
+         <p class="blog-post-meta">{{ post.dt.strftime("%d/%m/%Y %H:%M:%S") }} by <a href="#">Autor</a></p>
+         <p><div style="white-space:pre">{{ post.posttext }}</div></p>
         </article>
         <p>
           <a class="btn btn-secondary btn-sm" href="{{ url_for('writepost_bp.edit_post', id = post.id) }}" role="button">Edit</a>
           <a class="btn btn-dark btn-sm" href="{{ url_for('writepost_bp.delete_post', id = post.id) }}" role="button">Delete</a>
+        </p>
         <hr>
         {% endfor %}
 

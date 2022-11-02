@@ -4,5 +4,5 @@ from flask_wtf import FlaskForm
 
 class PostForm(FlaskForm):
     title = StringField('Заголовок', validators=[DataRequired()], render_kw={"placeholder": "Заголовок"})
-    content = TextAreaField('Текст', validators=[DataRequired()], render_kw={"placeholder": "Текст"})
+    posttext = TextAreaField('Текст', render_kw={"placeholder": "Текст"})
     submit = SubmitField('Записать')

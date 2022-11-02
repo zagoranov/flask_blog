@@ -1,8 +1,10 @@
 from flask import flash
+from datetime import datetime
+
 from main import Post, dbase
 
-def save_post(title, content):
-    post = Post(title=title, content=content)
+def save_post(title, posttext):
+    post = Post(title=title, posttext=posttext, dt=datetime.now())
     try:
         dbase.session.add(post)
         dbase.session.commit()
@@ -12,14 +14,14 @@ def save_post(title, content):
     return True
 
 
-def change_post(id, title, content):
+def change_post(id, title, posttext):
     post = Post.query.filter(Post.id == id).first()
     if post == None :
         flash("Что-то неправильное в этом id", "error")
         return False
     try:
         post.title = title
-        post.content = content
+        post.posttext = posttext
         dbase.session.commit()
     except:
         flash("Что-то неправильное с БД", "error")

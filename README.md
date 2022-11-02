@@ -8,8 +8,8 @@ python flask + sqlalchemy + bootstrap
 ## _To create db_
 ```python
 python
-from main import db
-db.create_all()
+from main import dbase
+dbase.create_all()
 exit()
 ```
 

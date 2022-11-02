@@ -6,13 +6,18 @@
 <div class="container">
 <p>
   <h3>Новый пост</h3>
-  <form action "/editpost/{{ name_to_update.id }}" method="POST">
+  {% if post_to_update == None %}
+    <form action "/writepost/ }}" method="POST">
+  {% else %}
+    <form action "/editpost/{{ post_to_update.id }}" method="POST">
+  {% endif %}
   {{ form.hidden_tag()}}
-  <p>{{ form.title(style='width: 600px;', value=name_to_update.title) }}</p>
-  <p>{{ form.content(style='height: 300px;width: 600px;', value=name_to_update.content) }}</p>
+  <p>{{ form.title(value=post_to_update.title, style='width: 600px;') }}</p>
+  <p>{{ form.posttext(value=post_to_update.posttext, style='height: 300px;width: 600px;') }}</p>
   <p>{{ form.submit(class='btn btn-secondary btn-sm') }}</p>
-  </form>
+</form>
 </p>
+
 <p><a class="btn btn-dark btn-sm" href="{{ url_for('index') }}" role="<button>"><- Back</a></p>
 </div>
 {% endblock %}

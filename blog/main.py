@@ -3,7 +3,7 @@ from crypt import methods
 from urllib import request
 from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Integer, String, Boolean, Text
+from sqlalchemy import Integer, String, Boolean, Text, DateTime
 
 import db
 
@@ -21,11 +21,12 @@ dbase.init_app(app)
 
 class Post(dbase.Model):
     id = dbase.Column(Integer, primary_key=True)
+    author_id = dbase.Column(Integer)
     title = dbase.Column(String(200), nullable=False)
-    content = dbase.Column(Text, nullable=False)
+    posttext = dbase.Column(Text)
     deleted = dbase.Column(Boolean, default=False)
+    dt = dbase.Column(DateTime)
 
-# Регистрируем другие страницы
 app.register_blueprint(writepost_bp)
 
 @app.route('/')
