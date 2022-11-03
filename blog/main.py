@@ -1,49 +1,20 @@
-import os
-from crypt import methods
-from urllib import request
-from flask import Flask, render_template, request, redirect, url_for, session
-from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Integer, String, Boolean, Text, DateTime
+from flask import Blueprint, render_template
+from flask_login import login_required, current_user
+#from . import db
+from .dbase import *
 
-import db
+main = Blueprint('main', __name__)
 
-from writepost import writepost_bp
-
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.urandom(32)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-
-dbase = SQLAlchemy(app)
-dbase.init_app(app)
-
-class Post(dbase.Model):
-    id = dbase.Column(Integer, primary_key=True)
-    author_id = dbase.Column(Integer)
-    title = dbase.Column(String(200), nullable=False)
-    posttext = dbase.Column(Text)
-    deleted = dbase.Column(Boolean, default=False)
-    dt = dbase.Column(DateTime)
-
-app.register_blueprint(writepost_bp)
-
-@app.route('/')
+@main.route('/')
 def index():
-    posts = db.getPosts()
+    posts = getPosts()
     return render_template('index.html', data=posts)
 
+@main.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', name=current_user.name)
 
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html'), 404
-
-
-#def run():
-#    if not db.init(app):
-#        print('Error during creating database connection', file=sys.stderr)
-
-
-if __name__ == "__main__":
-    app.run(debug=True)
+#@main.errorhandler(404)
+#def page_not_found(e):
+#    return render_template('404.html'), 404

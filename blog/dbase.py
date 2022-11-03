@@ -1,13 +1,13 @@
 from flask import flash
 from datetime import datetime
-
-from main import Post, dbase
+from . import db
+from .models import Post
 
 def save_post(title, posttext):
     post = Post(title=title, posttext=posttext, dt=datetime.now())
     try:
-        dbase.session.add(post)
-        dbase.session.commit()
+        db.session.add(post)
+        db.session.commit()
     except:
         flash("Что-то неправильное в данных, наверно где-то пусто", "error")
         return False
@@ -15,14 +15,14 @@ def save_post(title, posttext):
 
 
 def change_post(id, title, posttext):
-    post = Post.query.filter(Post.id == id).first()
+    post = Post.query.filter(Post.id == id).first_or_404()
     if post == None :
         flash("Что-то неправильное в этом id", "error")
         return False
     try:
         post.title = title
         post.posttext = posttext
-        dbase.session.commit()
+        db.session.commit()
     except:
         flash("Что-то неправильное с БД", "error")
         return False
@@ -30,7 +30,7 @@ def change_post(id, title, posttext):
 
 
 def get_post(id):
-    post = Post.query.filter(Post.id == id).first()
+    post = Post.query.filter(Post.id == id).first_or_404()
     if post == None :
         flash("Что-то неправильное в этом id", "error")
     return post
@@ -38,7 +38,7 @@ def get_post(id):
 
 def delete_post(id):
     post = Post.query.filter(Post.id == id).delete()
-    dbase.session.commit()
+    db.session.commit()
     return True
 
 
