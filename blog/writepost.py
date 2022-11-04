@@ -12,7 +12,7 @@ def create_post():
     postform = PostForm()
     if postform.validate_on_submit():
         if not save_post(postform.title.data, postform.posttext.data):
-            flash("Что-то неправильное в данных, наверно где-то пусто", "error")
+            flash("Something bad of empty with data", "error")
         else:
             return redirect(url_for('main.index'))
     return render_template('/write.html', form=postform, post_to_update=None)
@@ -36,7 +36,7 @@ def edit_post(id):
 @login_required
 def delete_post(id):
     if delete_post(id):
-        flash("Пост удален")
+        flash("Post deleted")
     else:
-        flash("Пост не удален", 'error')
+        flash("Post not deleted", 'error')
     return redirect(url_for('main.index'))

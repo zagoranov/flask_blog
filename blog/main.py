@@ -24,5 +24,5 @@ def author_profile(id):
 @login_required
 def create_comment():
     if not save_comment(request.form['comment'], request.form['post_id']):
-            flash("Что-то неправильное в данных, наверно где-то пусто", "error")
+            flash("Something bad of empty with data", "error")
     return redirect(url_for('main.index'))

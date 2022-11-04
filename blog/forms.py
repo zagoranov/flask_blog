@@ -3,10 +3,10 @@ from wtforms.validators import DataRequired, Optional, NumberRange, IPAddress, R
 from flask_wtf import FlaskForm
 
 class PostForm(FlaskForm):
-    title = StringField('Заголовок', validators=[DataRequired()], render_kw={"placeholder": "Заголовок"})
-    posttext = TextAreaField('Текст', render_kw={"placeholder": "Текст"})
-    submit = SubmitField('Записать')
+    title = StringField('Title', validators=[DataRequired()], render_kw={"placeholder": "Title"})
+    posttext = TextAreaField('Text', render_kw={"placeholder": "Text"})
+    submit = SubmitField('Save')
 
 class CommentForm(FlaskForm):
-    content = TextAreaField('Комментарий', render_kw={"placeholder": "Комментарий"})
-    submit = SubmitField('Записать')
+    content = TextAreaField('Comment', render_kw={"placeholder": "Comment"})
+    submit = SubmitField('Save')

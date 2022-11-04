@@ -1,5 +1,11 @@
-. Вынести логин в форму
-. Связать User с Post
-. Кнопки Редактировать и Удалить только для автора
-. Коментарии
-. Перейти на Postgre
+4.11.2022
++ User - Post connection
++ Edit / Delete post - only for author
++ Comments for Posts
+
+. Editing profile
+. Followers
+. Pagination
+. Post Markdown editor / viewer
+
+? Migrate to Postgre

@@ -10,7 +10,7 @@ def save_post(title, posttext):
         db.session.add(post)
         db.session.commit()
     except:
-        flash("Что-то неправильное в данных, наверно где-то пусто", "error")
+        flash("Something bad of empty with data", "error")
         return False
     return True
 
@@ -18,14 +18,14 @@ def save_post(title, posttext):
 def change_post(id, title, posttext):
     post = Post.query.filter(Post.id == id).first_or_404()
     if post == None :
-        flash("Что-то неправильное в этом id", "error")
+        flash("Wrong id", "error")
         return False
     try:
         post.title = title
         post.posttext = posttext
         db.session.commit()
     except:
-        flash("Что-то неправильное с БД", "error")
+        flash("Database error", "error")
         return False
     return True
 
@@ -33,7 +33,7 @@ def change_post(id, title, posttext):
 def get_post(id):
     post = Post.query.filter(Post.id == id).first_or_404()
     if post == None :
-        flash("Что-то неправильное в этом id", "error")
+        flash("Wrong id", "error")
     return post
 
 
@@ -53,6 +53,6 @@ def save_comment(content, post_id):
         db.session.add(comment)
         db.session.commit()
     except:
-        flash("Что-то неправильное в данных, наверно где-то пусто", "error")
+        flash("Something bad of empty with data", "error")
         return False
     return True
