@@ -71,15 +71,40 @@
         {% for post in data %}
         <article class="blog-post">
          <h2 class="blog-post-title mb-1">{{ post.title }}</h2>
-         <p class="blog-post-meta">{{ post.dt.strftime("%d/%m/%Y %H:%M:%S") }} by <a href="#">Autor</a></p>
+         <p class="blog-post-meta">{{ post.dt.strftime("%d/%m/%Y %H:%M:%S") }}
+          {% if post.user_id != None %} 
+              by <a href="{{ url_for('main.author_profile', id = post.user_id) }}">{{ post.user.name }}</a></p>
+          {% endif %}
          <p><div style="white-space:pre">{{ post.posttext }}</div></p>
         </article>
         {% if current_user.is_authenticated %}
-        <p>
-          <a class="btn btn-secondary btn-sm" href="{{ url_for('writepost_bp.edit_post', id = post.id) }}" role="button">Edit</a>
-          <a class="btn btn-dark btn-sm" href="{{ url_for('writepost_bp.delete_post', id = post.id) }}" role="button">Delete</a>
-        </p>
-       {% endif %}
+          {% if current_user.id == post.user_id %}
+            <p>
+              <a class="btn btn-secondary btn-sm" href="{{ url_for('writepost_bp.edit_post', id = post.id) }}" role="button">Edit</a>
+              <a class="btn btn-dark btn-sm" href="{{ url_for('writepost_bp.delete_post', id = post.id) }}" role="button">Delete</a>
+            </p>
+          {% endif %}
+        {% endif %}
+        <hr>
+
+            <h4>Comments</h4>
+            {% for comment in post.comments %}
+                <p><a href="{{ url_for('main.author_profile', id = comment.user_id) }}">{{ comment.user.name }}</a> at {{ comment.dt.strftime("%d/%m/%Y %H:%M:%S") }}</p>
+                <div class="comment">
+                   <p>{{ comment.content }}</p>
+                </div>
+            {% endfor %}
+            {% if current_user.is_authenticated %}
+            <div class="comment">
+             <form action="{{ url_for('main.create_comment') }}" method="post">
+              <p><input type="text" name="comment"></p>
+              <input type="hidden" id="post_id" name="post_id" value="{{ post.id }}">
+              <p><input type="submit" value="Add comment"></p>
+             </form>
+            </div>
+            {% endif %}
+
+       
         <hr>
        {% endfor %}
 

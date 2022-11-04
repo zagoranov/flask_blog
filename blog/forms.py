@@ -6,3 +6,7 @@ class PostForm(FlaskForm):
     title = StringField('Заголовок', validators=[DataRequired()], render_kw={"placeholder": "Заголовок"})
     posttext = TextAreaField('Текст', render_kw={"placeholder": "Текст"})
     submit = SubmitField('Записать')
+
+class CommentForm(FlaskForm):
+    content = TextAreaField('Комментарий', render_kw={"placeholder": "Комментарий"})
+    submit = SubmitField('Записать')

@@ -6,7 +6,16 @@ flask + sqlalchemy + bootstrap
 - Forms: https://www.youtube.com/watch?v=oba6GGprvKc
 - Authentication: https://www.digitalocean.com/community/tutorials/how-to-add-authentication-to-your-app-with-flask-login
 
-## _To create db_
+
+## Env stuff
+in flask_blog/
+```console
+python3 -m venv blog
+source blog/bin/activate
+export FLASK_APP=blog
+export FLASK_DEBUG=1
+```
+## Creating DB
 ```console
 python
 >>> from blog import db, create_app, models
@@ -15,12 +24,10 @@ exit()
 
 ```
 
-## Env stuff
+## Run
+in flask_blog/
 ```console
-python3 -m venv blog
-source blog/bin/activate
-export FLASK_APP=blog
-export FLASK_DEBUG=1
+flask run
 ```
 
 ## Requires

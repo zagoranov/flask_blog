@@ -1,10 +1,11 @@
 from flask import flash
+from flask_login import current_user
 from datetime import datetime
 from . import db
-from .models import Post
+from .models import Post, Comment
 
 def save_post(title, posttext):
-    post = Post(title=title, posttext=posttext, dt=datetime.now())
+    post = Post(title=title, posttext=posttext, dt=datetime.now(), user_id=current_user.id)
     try:
         db.session.add(post)
         db.session.commit()
@@ -44,3 +45,14 @@ def delete_post(id):
 
 def getPosts():
     return Post.query.all()
+
+
+def save_comment(content, post_id):
+    comment = Comment(content=content, dt=datetime.now(), user_id=current_user.id, post_id=post_id)
+    try:
+        db.session.add(comment)
+        db.session.commit()
+    except:
+        flash("Что-то неправильное в данных, наверно где-то пусто", "error")
+        return False
+    return True
