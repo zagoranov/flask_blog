@@ -30,7 +30,7 @@
                             <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('auth.logout') }}">
                                 Logout
                             </a>
-			                      <a class="btn btn-sm btn-outline-secondary"a href="{{ url_for('main.profile') }}">
+			                      <a class="btn btn-sm btn-outline-secondary"a href="{{ url_for('authors.profile') }}">
                                 Profile
                             </a>
           {% endif %}
@@ -73,7 +73,7 @@
          <h2 class="blog-post-title mb-1">{{ post.title }}</h2>
          <p class="blog-post-meta">{{ post.dt.strftime("%d/%m/%Y %H:%M:%S") }}
           {% if post.user_id != None %} 
-              by <a href="{{ url_for('main.author_profile', id = post.user_id) }}">{{ post.user.name }}</a></p>
+              by <a href="{{ url_for('authors.author_profile', id = post.user_id) }}">{{ post.user.name }}</a></p>
           {% endif %}
          <p><div style="white-space:pre">{{ post.posttext }}</div></p>
         </article>
@@ -89,7 +89,7 @@
 
             <h4>Comments</h4>
             {% for comment in post.comments %}
-                <p><a href="{{ url_for('main.author_profile', id = comment.user_id) }}">{{ comment.user.name }}</a> at {{ comment.dt.strftime("%d/%m/%Y %H:%M:%S") }}</p>
+                <p><a href="{{ url_for('authors.author_profile', id = comment.user_id) }}">{{ comment.user.name }}</a> at {{ comment.dt.strftime("%d/%m/%Y %H:%M:%S") }}</p>
                 <div class="comment">
                    <p>{{ comment.content }}</p>
                 </div>

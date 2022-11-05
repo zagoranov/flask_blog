@@ -15,9 +15,11 @@ def create_app():
 
     from .auth import auth as auth_bp
     from .writepost import writepost_bp
-
+    from .authors import authors as authors_bp
+    
     app.register_blueprint(auth_bp)
     app.register_blueprint(writepost_bp)
+    app.register_blueprint(authors_bp)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
@@ -27,12 +29,10 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        # since the user_id is just the primary key of our user table, use it in the query for the user
         return User.query.get(int(user_id))
 
-    # blueprint for non-auth parts of app
-    from .main import main as main_blueprint
-    app.register_blueprint(main_blueprint)
+    from .main import main as main_bp
+    app.register_blueprint(main_bp)
 
     @app.errorhandler(404)
     def page_not_found(e):

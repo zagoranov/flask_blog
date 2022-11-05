@@ -3,9 +3,13 @@
 + Edit / Delete post - only for author
 + Comments for Posts
 
+5.11.2022
++ Followers
+
+
 . Editing profile
-. Followers
 . Pagination
-. Post Markdown editor / viewer
+. Post Markdown editor + viewer
+
 
 ? Migrate to Postgre

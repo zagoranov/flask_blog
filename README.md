@@ -16,6 +16,7 @@ export FLASK_APP=blog
 export FLASK_DEBUG=1
 ```
 ## Creating DB
+in flask_blog/
 ```console
 python
 >>> from blog import db, create_app, models

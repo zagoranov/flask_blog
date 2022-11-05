@@ -2,9 +2,31 @@
 
 {% block content %}
     <h2 class="title">
-    User: {{ name }}!
+    User: {{ user.name }}!
     </h2>
-        
-    <br><br><p><a class="btn btn-dark btn-sm" href="{{ url_for('main.index') }}" role="<button>"><- Back</a></p>
+
+    <br><br>
+    
+    <p>
+    {% if current_user.is_authenticated %}
+      {% if user.id != current_user.id %}
+        {% if current_user.is_following(user) %}
+            <a href="{{ url_for('authors.unfollow', id=user.id) }}" class="btn btn-primary">Unfollow</a>
+        {% else %}
+            <a href="{{ url_for('authors.follow', id=user.id) }}" class="btn btn-primary">Follow</a>
+        {% endif %}
+      {% endif %}
+
+      <h4>Followers</h4>
+        {% for flw in user.followers %}
+            <p><a href="{{ url_for('authors.author_profile', id=flw.follower_id) }}">{{ flw.follower_id }}</a></p>
+        {% endfor %}
+
+    {% endif %}
+    </p>
+
+    <br><br>
+    
+    <p><a class="btn btn-dark btn-sm" href="{{ url_for('main.index') }}" role="<button>"><- Back</a></p>
 
 {% endblock %}
