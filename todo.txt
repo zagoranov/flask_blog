@@ -7,6 +7,9 @@
 + Followers
 
 
+. Post visibility mode (hidden, only followers, public)
+. Ordering posts 
+
 . Editing profile
 . Pagination
 . Post Markdown editor + viewer
