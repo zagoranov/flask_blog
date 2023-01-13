@@ -15,10 +15,12 @@ def create_app():
 
     from .auth import auth as auth_bp
     from .writepost import writepost_bp
+    from .editproject import editproject_bp
     from .authors import authors as authors_bp
     
     app.register_blueprint(auth_bp)
     app.register_blueprint(writepost_bp)
+    app.register_blueprint(editproject_bp)
     app.register_blueprint(authors_bp)
 
     login_manager = LoginManager()

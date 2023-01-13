@@ -16,6 +16,7 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
     posts = db.relationship('Post', backref='user', lazy='dynamic')
+    projects = db.relationship('Project', backref='user', lazy='dynamic')
     comments = db.relationship('Comment', backref='user', lazy='dynamic')
     followed = db.relationship('Follow', foreign_keys=[Follow.follower_id], 
                                 backref=db.backref('follower', lazy='joined'),
@@ -47,10 +48,27 @@ class User(UserMixin, db.Model):
     def __repr__(self):
         return f'<User "{self.id}, {self.name}">'
 
+class Project(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    title = db.Column(db.String(200), nullable=False)
+    description = db.Column(db.String(200))
+    deleted = db.Column(db.Boolean, default=False)
+    dt = db.Column(db.DateTime, default=datetime.utcnow)
+    posts = db.relationship('Post', backref='project', lazy='dynamic')
+
+    def change_project(self, title, description):
+        self.title = title
+        self.description = description
+        db.session.commit()
+
+    def __repr__(self):
+        return f'{self.title}'
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    project_id = db.Column(db.Integer, db.ForeignKey('project.id'))
     title = db.Column(db.String(200), nullable=False)
     posttext = db.Column(db.Text)
     deleted = db.Column(db.Boolean, default=False)

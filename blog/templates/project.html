@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title%}New project{% endblock %}
+
+{% block content%}
+<div class="container">
+<p>
+  <h3>Новый пост</h3>
+  {% if project_to_update == None %}
+    <form action "/newproject/ }}" method="POST">
+  {% else %}
+    <form action "/editproject/{{ project_to_update.id }}" method="POST">
+  {% endif %}
+  {{ form.hidden_tag()}}
+  <p>{{ form.title(value=project_to_update.title, style='width: 600px;') }}</p>
+  <p>{{ form.description(value=project_to_update.description, style='width: 600px;') }}</p>
+  <p>{{ form.submit(class='btn btn-secondary btn-sm') }}</p>
+</form>
+</p>
+
+<p><a class="btn btn-dark btn-sm" href="{{ url_for('main.index') }}" role="<button>"><- Back</a></p>
+
+</div>
+{% endblock %}

@@ -11,6 +11,9 @@
         </div>
         <div class="col-4 text-center">
   {% if current_user.is_authenticated %}
+          <a class="blog-header-logo text-dark" href="{{ url_for('editproject_bp.create_project') }}">
+            New project
+          </a>
           <a class="blog-header-logo text-dark" href="{{ url_for('writepost_bp.create_post') }}">
             New post
           </a>
@@ -57,8 +60,12 @@
          <h2 class="blog-post-title mb-1">{{ post.title }}</h2>
          <p class="blog-post-meta">{{ post.dt.strftime("%d/%m/%Y %H:%M:%S") }}
           {% if post.user_id != None %} 
-              by <a href="{{ url_for('authors.author_profile', id = post.user_id) }}">{{ post.user.name }}</a></p>
+              by <a href="{{ url_for('authors.author_profile', id = post.user_id) }}">{{ post.user.name }}</a>
           {% endif %}
+          {% if post.project_id != None %} 
+              in {{ post.project.title }}
+          {% endif %}
+         </p>
          <p><div style="white-space:pre">{{ post.posttext }}</div></p>
         </article>
         {% if current_user.is_authenticated %}

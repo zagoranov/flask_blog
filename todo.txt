@@ -6,8 +6,13 @@
 5.11.2022
 + Followers
 
+13.01.2023
++ Projects to unite Posts
 
-. Post visibility mode (hidden, only followers, public)
+
+Left to do:
+
+. Post visibility mode (public, only followers, only author)
 . Ordering posts 
 
 . Editing profile
