@@ -72,6 +72,7 @@ class Post(db.Model):
     title = db.Column(db.String(200), nullable=False)
     posttext = db.Column(db.Text)
     deleted = db.Column(db.Boolean, default=False)
+    visibility = db.Column(db.Integer, default=0)
     dt = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.relationship('Comment', backref='post')
 

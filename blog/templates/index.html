@@ -65,6 +65,9 @@
           {% if post.project_id != None %} 
               in {{ post.project.title }}
           {% endif %}
+          ,{% if post.visibility == 0 %}Открытый пост{% else %}
+              {% if post.visibility == 1 %}Только для подписчиков{% else %}Только для автора{% endif %}
+          {% endif %}
          </p>
          <p><div style="white-space:pre">{{ post.posttext }}</div></p>
         </article>

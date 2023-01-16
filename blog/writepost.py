@@ -11,7 +11,7 @@ writepost_bp = Blueprint('writepost_bp', __name__)
 def create_post():
     postform = PostForm()
     if postform.validate_on_submit():
-        post = Post(title=postform.title.data, posttext=postform.posttext.data, project_id=postform.project_id.data.id, user_id=current_user.id)
+        post = Post(title=postform.title.data, posttext=postform.posttext.data, project_id=postform.project_id.data.id, visibility=postform.visibility.data, user_id=current_user.id)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('main.index'))
@@ -26,7 +26,7 @@ def edit_post(id):
     if post == None:
         return redirect(url_for('main.index'))
     if postform.validate_on_submit():
-        post.change_post(id, request.form['title'], request.form['posttext'], request.form['project_id'])
+        post.change_post(id, request.form['title'], request.form['posttext'], request.form['visibility'], request.form['project_id'])
         return redirect(url_for('main.index'))
     postform.posttext.data = post.posttext  #for TextAreaField you have to set value by yourself
     return render_template('/write.html', form=postform, post_to_update=post)

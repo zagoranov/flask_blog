@@ -17,6 +17,7 @@ class PostForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()], render_kw={"placeholder": "Title"})
     posttext = TextAreaField('Text', render_kw={"placeholder": "Text"})
     project_id = QuerySelectField(query_factory=project_query, allow_blank=False)
+    visibility = SelectField('Visibility', coerce=int, choices=[(0, 'Открытый пост'), (1, 'Только подписчики'), (2, 'Только автор')])
     submit = SubmitField('Save')
 
 class CommentForm(FlaskForm):
