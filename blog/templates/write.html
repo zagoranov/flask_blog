@@ -13,9 +13,7 @@
   {% endif %}
   {{ form.hidden_tag()}}
   <p>{{ form.title(value=post_to_update.title, style='width: 600px;') }}</p>
-  {% if post_to_update == None %}
-    <p>{{ form.project_id(value=post_to_update.project_id, style='width: 600px;') }}</p>
-  {% endif %}
+  <p>{{ form.project_id(value=post_to_update.project_id, style='width: 600px;') }}</p>
   <p>{{ form.visibility(value=post_to_update.visibility, style='width: 600px;') }}</p>  
   <p>{{ form.posttext(value=post_to_update.posttext, style='height: 300px;width: 600px;') }}</p>
   <p>{{ form.submit(class='btn btn-secondary btn-sm') }}</p>

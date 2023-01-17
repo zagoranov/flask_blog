@@ -26,7 +26,7 @@ def edit_project(id):
     if project == None:
         return redirect(url_for('main.index'))
     if projectform.validate_on_submit():
-        project.change_project(id, request.form['description'])
+        project.change_project(request.form['title'], request.form['description'])
         return redirect(url_for('main.index'))
     return render_template('/project.html', form=projectform, project_to_update=project)
 

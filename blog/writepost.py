@@ -26,7 +26,7 @@ def edit_post(id):
     if post == None:
         return redirect(url_for('main.index'))
     if postform.validate_on_submit():
-        post.change_post(id, request.form['title'], request.form['posttext'], request.form['visibility'], request.form['project_id'])
+        post.change_post(request.form['title'], request.form['visibility'], request.form['posttext'], request.form['project_id'])
         return redirect(url_for('main.index'))
     postform.posttext.data = post.posttext  #for TextAreaField you have to set value by yourself
     return render_template('/write.html', form=postform, post_to_update=post)

@@ -1,7 +1,7 @@
 from datetime import datetime
 from flask_login import UserMixin
 from . import db
-
+import sys
 
 class Follow(db.Model):
     __tablename__ = 'follows'
@@ -12,9 +12,9 @@ class Follow(db.Model):
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True)
+    email = db.Column(db.String(50), unique=True)
     password = db.Column(db.String(100))
-    name = db.Column(db.String(1000))
+    name = db.Column(db.String(50))
     posts = db.relationship('Post', backref='user', lazy='dynamic')
     projects = db.relationship('Project', backref='user', lazy='dynamic')
     comments = db.relationship('Comment', backref='user', lazy='dynamic')
@@ -76,10 +76,16 @@ class Post(db.Model):
     dt = db.Column(db.DateTime, default=datetime.utcnow)
     comments = db.relationship('Comment', backref='post')
 
-    def change_post(self, title, posttext):
+    def change_post(self, title, visibility, posttext, project_id):
+        print('--- change_post: db.session.commit() - start', file=sys.stdout)
         self.title = title
         self.posttext = posttext
+        self.visibility = visibility
+        self.project_id = project_id
+        print('--- change_post: db.session.commit()', file=sys.stdout)
         db.session.commit()
+        print('--- change_post: db.session.commit() - ok', file=sys.stdout)
+        
 
     def __repr__(self):
         return f'<Post: {self.user_id} at {self.dt.strftime("%d/%m/%Y %H:%M:%S")}: "{self.title[:20]}...">'
