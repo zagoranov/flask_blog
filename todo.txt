@@ -9,15 +9,19 @@
 13.01.2023
 + Projects to unite Posts
 
+17.01.2023
++ Post visibility mode (public, only followers, only author)
+
+20.01.2023
++ Editing profile
+
 
 Left to do:
 
-. Post visibility mode (public, only followers, only author)
 . Ordering posts 
 
-. Editing profile
 . Pagination
-. Post Markdown editor + viewer
 
+. Post Markdown editor + viewer
 
 ? Migrate to Postgre

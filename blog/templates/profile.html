@@ -1,20 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h2 class="title">
-    User: {{ user.name }}!
-    </h2>
 
-    <br><br>
-    
+<div class="container">
     <p>
+
     {% if current_user.is_authenticated %}
       {% if user.id != current_user.id %}
+        <h2 class="title">
+        User: {{ user.name }}
+        </h2>    
+        <br><br>
+       
         {% if current_user.is_following(user) %}
             <a href="{{ url_for('authors.unfollow', id=user.id) }}" class="btn btn-primary">Unfollow</a>
         {% else %}
             <a href="{{ url_for('authors.follow', id=user.id) }}" class="btn btn-primary">Follow</a>
         {% endif %}
+      
+      {% else %}
+        {% if form %}
+            <p>
+            <form action "/profile" method="POST">
+            {{ form.hidden_tag()}}
+            <p>{{ form.name(value=user.name, style='width: 600px;') }}</p>
+            <p>{{ form.submit(class='btn btn-secondary btn-sm') }}</p>
+            </form>
+            </p>
+        {% else %}
+        <h2 class="title">
+            User: {{ user.name }}
+            </h2>
+        {% endif %}
+        <p>Email: {{ user.email }} </p>
       {% endif %}
 
       <h4>Followers</h4>
@@ -23,10 +41,11 @@
         {% endfor %}
 
     {% endif %}
-    </p>
 
     <br><br>
     
     <p><a class="btn btn-dark btn-sm" href="{{ url_for('main.index') }}" role="<button>"><- Back</a></p>
 
+</p>
+</div>
 {% endblock %}

@@ -23,3 +23,7 @@ class PostForm(FlaskForm):
 class CommentForm(FlaskForm):
     content = TextAreaField('Comment', render_kw={"placeholder": "Comment"})
     submit = SubmitField('Save')
+
+class UserForm(FlaskForm):
+    name = StringField('Name', render_kw={"placeholder": "Name"})
+    submit = SubmitField('Save')

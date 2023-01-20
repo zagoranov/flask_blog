@@ -1,13 +1,19 @@
 from flask import Blueprint, render_template, url_for, redirect, flash, request
 from flask_login import login_required, current_user
 from .models import User
+from .forms import UserForm
 
 authors = Blueprint('authors', __name__)
 
-@authors.route('/profile')
+@authors.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template('profile.html', user=current_user)
+    userform = UserForm()
+    user = User.query.filter(User.id == current_user.id).first_or_404()
+    if userform.validate_on_submit():
+        current_user.change_user(request.form['name'])
+        return redirect(url_for('main.index'))
+    return render_template('profile.html', form=userform, user=user)
 
 @authors.route('/author/<int:id>')
 def author_profile(id):
@@ -35,3 +41,4 @@ def unfollow(id):
     else:
         flash('You are not followed %s', user.name)
     return render_template('profile.html', user=user)
+

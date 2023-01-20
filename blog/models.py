@@ -45,6 +45,10 @@ class User(UserMixin, db.Model):
     def is_followed_by(self, user):
         return self.followers.filter_by(follower_id=user.id).first() is not None
 
+    def change_user(self, name):
+        self.name = name
+        db.session.commit()
+
     def __repr__(self):
         return f'<User "{self.id}, {self.name}">'
 
